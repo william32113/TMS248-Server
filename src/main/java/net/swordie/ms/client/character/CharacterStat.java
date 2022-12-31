@@ -352,9 +352,9 @@ public class CharacterStat {
         outPacket.encodeByte(getSkin());
         outPacket.encodeInt(getFace());
         outPacket.encodeInt(getHair());
-        outPacket.encodeByte(getMixBaseHairColor());
-        outPacket.encodeByte(getMixAddHairColor());
-        outPacket.encodeByte(getMixHairBaseProb());
+        outPacket.encodeByte(getMixBaseHairColor());//-1
+        outPacket.encodeByte(getMixAddHairColor());//0
+        outPacket.encodeByte(getMixHairBaseProb());//0
 
         outPacket.encodeInt(getLevel());
         outPacket.encodeShort(getJob());
@@ -381,12 +381,12 @@ public class CharacterStat {
         outPacket.encodeByte(getPortal());
         outPacket.encodeShort(getSubJob());
         if (JobConstants.isDemon(getJob()) || JobConstants.isXenon(getJob()) || JobConstants.isBeastTamer(getJob())
-                || JobConstants.isArk(getJob())) {
+                || JobConstants.isArk(getJob()) || JobConstants.isHoYoung(getJob())) {
             outPacket.encodeInt(getDefFaceAcc());
         }
         outPacket.encodeByte(0);
         outPacket.encodeFT(FileTime.fromType(FileTime.Type.ZERO_TIME)); // 00 40 E0 FD 3B 37 4F 01
-        outPacket.encodeShort(getFatigue());
+        outPacket.encodeShort(getFatigue());//00
         outPacket.encodeInt(getLastFatigueUpdateTime());
         outPacket.encodeInt(getCharismaExp());
         outPacket.encodeInt(getInsightExp());
@@ -397,10 +397,10 @@ public class CharacterStat {
         getNonCombatStatDayLimit().encode(outPacket);
 
         outPacket.encodeInt(getPvpExp());
-        outPacket.encodeByte(getPvpGrade());
+        outPacket.encodeByte(getPvpGrade());//0A
         outPacket.encodeInt(getPvpPoint()); // 00 00 00 FB
         outPacket.encodeByte(6/*2*/);
-        outPacket.encodeByte(getPvpModeType());
+        outPacket.encodeByte(getPvpModeType());//7
 
         outPacket.encodeInt(getEventPoint());
         outPacket.encodeInt(0);

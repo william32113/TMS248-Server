@@ -1744,6 +1744,7 @@ public abstract class Job {
                     chr.setStatAndSendPacket(Stat.mmp, 200);
                     break;
                 case inte:
+
                     chr.setStatAndSendPacket(Stat.mhp, 200);
                     chr.setStatAndSendPacket(Stat.mmp, 500);
                     break;

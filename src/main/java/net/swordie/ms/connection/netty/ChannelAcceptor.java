@@ -39,7 +39,7 @@ public class ChannelAcceptor implements Runnable {
 
                     ch.pipeline().addLast(new PacketDecoder(), new ChannelHandler(true), new PacketEncoder());
 
-                    //byte[] siv = new byte[]{70, 114, 30, 82};
+                   // byte[] siv = new byte[]{70, 114, 30, 82};
                    // byte[] riv = new byte[]{82, 48, 25, 115};
                     byte[] siv = new byte[]{0x30, 0x7b, (byte) 0xa0, 0x13};
                     byte[] riv = new byte[]{0x2d, 0x3e, 0x04, 0x58};

@@ -8,7 +8,7 @@ package net.swordie.ms.constants;
 public class FieldConstants {
 
     public static boolean isVonbonField(int fieldID) {
-        return fieldID >= 105200110 && fieldID < 105200120 || fieldID >= 105200510 && fieldID < 105200520;
+        return fieldID >= 105200110 && fieldID < 105200120 || fieldID >= 105200510 && fieldID < 105200520 || fieldID == 105200519;
     }
 
 }

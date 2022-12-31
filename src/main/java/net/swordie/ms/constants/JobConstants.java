@@ -15,7 +15,7 @@ public class JobConstants {
 
     public static final boolean enableJobs = true;
     // UI.wz/Login.img/RaceSelect_new/order
-    public static final int jobOrder = 245;
+    public static final int jobOrder = 244;
 
     public static JobEnum getJobEnumById(short jobId) {
         return Arrays.stream(JobEnum.values()).filter(job -> job.getJobId() == jobId)
@@ -879,9 +879,9 @@ public class JobConstants {
         伊利恩(20, JobFlag.ENABLED, JobEnum.ILLIUM),
         亞克(21, JobFlag.ENABLED, JobEnum.ARK),
         開拓者(22, JobFlag.ENABLED, JobEnum.PATHFINDER_1),
-        虎影(23, JobFlag.ENABLED, JobEnum.HOYOUNG),
-        阿戴爾(24, JobFlag.ENABLED, JobEnum.ADELE),
-        凱殷(25, JobFlag.ENABLED, JobEnum.KAIN),
+        虎影(23, JobFlag.ENABLED, JobEnum.HOYOUNG_1),
+        阿戴爾(24, JobFlag.ENABLED, JobEnum.ADELE_1),
+        凱殷(25, JobFlag.ENABLED, JobEnum.KAIN_1),
         雪吉拉(26, JobFlag.ENABLED, JobEnum.YETI),
         菈菈(27, JobFlag.ENABLED, JobEnum.LARA),
         墨玄(1000, JobFlag.ENABLED, JobEnum.MOXUAN),
@@ -934,7 +934,7 @@ public class JobConstants {
     public static void encode(OutPacket outPacket) {
         outPacket.encodeByte(enableJobs);
         outPacket.encodeByte(jobOrder);
-        for (LoginJob loginJobId : LoginJob.values()) {
+        for (LoginJob loginJobId : LoginJob.values()) {//32
             outPacket.encodeByte(loginJobId.getFlag());
             outPacket.encodeShort(loginJobId.getFlag());
         }
@@ -1106,6 +1106,14 @@ public class JobConstants {
         return jobId / 100 == 21 || jobId == 2000;
     }
 
+    public static boolean isHoYoung(short jobId) {
+        return jobId == JobEnum.HOYOUNG.getJobId()
+                || jobId == JobEnum.HOYOUNG_1.getJobId()
+                || jobId == JobEnum.HOYOUNG_2.getJobId()
+                || jobId == JobEnum.HOYOUNG_3.getJobId()
+                || jobId == JobEnum.HOYOUNG_4.getJobId();
+    }
+
     public static boolean isKinesis(short jobId) {
         return jobId == JobEnum.KINESIS_0.getJobId()
                 || jobId == JobEnum.KINESIS_1.getJobId()
@@ -1251,7 +1259,7 @@ public class JobConstants {
     }
 
     public static boolean isThiefEquipJob(short jobID) {
-        return isAdventurerThief(jobID) || isNightWalker(jobID) || isPhantom(jobID) || isXenon(jobID) || isCadena(jobID);
+        return isAdventurerThief(jobID) || isNightWalker(jobID) || isPhantom(jobID) || isXenon(jobID) || isCadena(jobID) || isHoYoung(jobID);
     }
 
     public static boolean isPirateEquipJob(short jobID) {

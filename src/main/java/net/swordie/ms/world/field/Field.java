@@ -548,29 +548,6 @@ public class Field {
         }
     }
 
-    public void spawnMagicSword(Char chr, MagicSword magicSword, final boolean core, Adele adele) {
-        addLife(magicSword);
-        broadcastPacket(SkillPacket.CreateSworldObtacle(magicSword));
-        EventManager.addEvent(() -> removeMagicSword(chr, magicSword, core, adele), magicSword.getDuration(), TimeUnit.MILLISECONDS);
-    }
-
-    public void removeMagicSword(Char chr, MagicSword magicSword, final boolean core, Adele adele) {
-        if (!core) {
-            adele.激活乙太劍--;
-            if (adele.激活乙太劍 < 0) {
-                adele.激活乙太劍 = 0;
-            }
-            removeMagicSword(chr, Arrays.asList(magicSword));
-        }
-    }
-
-    public void removeMagicSword(Char chr, List<MagicSword> magicSwordList) {
-        broadcastPacket(SkillPacket.removeSecondAtom(chr, magicSwordList.size()));
-        for (MagicSword magicSword : magicSwordList) {
-            removeLife(magicSword);
-        }
-    }
-
     public void spawnLifeForTime(Life life, int timeMS) {
         spawnLife(life, null);
         ScheduledFuture sf = EventManager.addEvent(() -> removeLife(life.getObjectId(), true), timeMS, TimeUnit.MILLISECONDS);

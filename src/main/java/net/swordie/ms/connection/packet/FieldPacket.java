@@ -118,7 +118,7 @@ public class FieldPacket {
 
         outPacket.encodeInt(aa.getObjectId());
         outPacket.encodeByte(aa.getAaType());
-        outPacket.encodeInt(aa.getCharID());
+        outPacket.encodeInt(aa.getOwnerID());
         outPacket.encodeInt(aa.getSkillID());
         outPacket.encodeShort(aa.getSlv());
         outPacket.encodeShort(aa.getDelay());
@@ -139,8 +139,8 @@ public class FieldPacket {
         outPacket.encodeInt(aa.getSkillID() == BOLT_BARRAGE_TILE ? 0 : aa.getDuration()); // duration
         outPacket.encodeInt(0);
         outPacket.encodeInt(0);
-        outPacket.encodeByte(0);
-        outPacket.encodeByte(0);
+        outPacket.encodeByte(0);//aa.hasHitMob() ?
+        outPacket.encodeByte(aa.hasHitMob());//aa.hasHitMob() ?
 
         boolean bool = false;
         outPacket.encodeByte(bool); // ?

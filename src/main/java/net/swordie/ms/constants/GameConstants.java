@@ -699,7 +699,7 @@ public class GameConstants {
 
         } else if (JobConstants.isAdventurerThief(job) || JobConstants.isNightLord(job) || JobConstants.isShadower(job)
                 || JobConstants.isPhantom(job) || JobConstants.isNightWalker(job) || JobConstants.isDualBlade(job)
-                || JobConstants.isCadena(job)) {
+                || JobConstants.isCadena(job) || JobConstants.isHoYoung(job)) {
             return BaseStat.luk;
 
         } else if (JobConstants.isDemonAvenger(job)) {

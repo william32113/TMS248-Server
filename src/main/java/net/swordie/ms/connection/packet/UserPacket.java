@@ -251,4 +251,11 @@ public class UserPacket {
 
         return outPacket;
     }
+
+    public static OutPacket shapeShiftResult(int charId, boolean bEnable) {
+        OutPacket outPacket = new OutPacket(OutHeader.SHAPESHIFT_RESULT);
+        outPacket.encodeInt(charId);
+        outPacket.encodeByte(bEnable);
+        return outPacket;
+    }
 }

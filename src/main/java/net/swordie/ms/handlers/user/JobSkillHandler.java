@@ -836,20 +836,4 @@ public class JobSkillHandler {
             ((Pathfinder) chr.getJobHandler()).incrementSwiftStrikeCharge();
         }
     }
-
-    @Handler(op = InHeader.碎片)
-    public static void handleCreateSubObtacle(Char chr, InPacket inPacket) {
-        int count = inPacket.decodeInt();
-        chr.write(SkillPacket.removeSecondAtom(chr, count));
-    }
-
-    @Handler(op = InHeader.穿刺)
-    public static void handle(Char chr, InPacket inPacket) {
-        int skillid = inPacket.decodeInt();
-        int level = inPacket.decodeInt();
-        AttackInfo ret = new AttackInfo();
-        ret.skillId = skillid;
-        ret.slv = level;
-        chr.write(SkillPacket.穿刺(chr, skillid, level));
-    }
 }

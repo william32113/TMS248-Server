@@ -38,7 +38,7 @@ public class FileTime implements Serializable {
 
     public enum Type {
 		// Mushy
-		MAX_TIME(35120710, -1157267456),
+		MAX_TIME(35120710, -1157267456), // 00 80 05 BB 46 E6 17 02
 		ZERO_TIME(21968699, -35635200), // 00 40 E0 FD 3B 37 4F 01
 		FT_UT_OFFSET(116444592000000000L),
 		QUEST_TIME(27111903),

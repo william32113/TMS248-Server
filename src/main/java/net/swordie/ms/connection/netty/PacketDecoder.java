@@ -45,11 +45,11 @@ public class PacketDecoder extends ByteToMessageDecoder {
             if (c.getStoredLength() == -1) {
                 if (in.readableBytes() >= 4) {
                     int h = in.readInt();
-/*                    if (!MapleCrypto.checkPacket(h, iv)) {
+                    if (!MapleCrypto.checkPacket(h, iv)) {
                         log.error(String.format("[PacketDecoder] | Incorrect packet seq! Dropping client %s.", c.getIP()));
                         c.close();
                         return;
-                    }*/
+                    }
                     c.setStoredLength(MapleCrypto.getLength(h));
                 } else {
                     return;

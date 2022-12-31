@@ -35,6 +35,7 @@ public enum EquipPrefix {
     PsyLimiter(126),
     Chain(127),
     Gauntlet(128),
+    RitualFan(129),
     OneHandedSword(130),
     OneHandedAxe(131),
     OneHandedBluntWeapon(132),

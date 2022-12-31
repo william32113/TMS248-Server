@@ -434,6 +434,10 @@ public class AttackHandler {
             inPacket.decodeInt();
         }
 
+        if (skillID == 23121011) { // Mercedes Rolling Moonsault skill
+            inPacket.decodeInt();
+        }
+
         if (skillID == NightWalker.SHADOW_SPEAR_AA_LARGE) {
             ai.shadowSpear1 = inPacket.decodeInt();
             ai.shadowSpear2 = inPacket.decodeInt();
@@ -568,6 +572,11 @@ public class AttackHandler {
             }
             mai.mobUpDownYRange = inPacket.decodeInt();
             inPacket.decodeInt(); // crc
+            if (SkillConstants.isKinesisPsychicLockSkill(skillID)) {
+                //mai.psychicLockInfo
+                inPacket.decodeInt(); // CMob->nPsychicLockKey
+                inPacket.decodeInt(); // CKinesis_PsychicLock->nCurrentPathIndex
+            }
             if (skillID == 37111005) {
                 mai.isResWarriorLiftPress = inPacket.decodeByte() != 0;
             }

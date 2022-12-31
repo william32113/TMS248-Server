@@ -180,9 +180,9 @@ public class Item implements Serializable, Encodable {
         if (isCash()) {
             outPacket.encodeLong(getId());
         }
-        outPacket.encodeFT(getDateExpire());
+        outPacket.encodeFT(getDateExpire());//00 80 05 BB 46 E6 17 02
         outPacket.encodeInt(-1); // bagIndex if it's in a bag
-        outPacket.encodeByte(true/*false*/); // new 196
+        outPacket.encodeByte(false); // new 196
         if (getType() == Type.ITEM) { // bundle
             outPacket.encodeShort(getQuantity()); // nQuantity
             outPacket.encodeString(getOwner()); // sOwner

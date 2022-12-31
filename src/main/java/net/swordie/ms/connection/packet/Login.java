@@ -109,8 +109,6 @@ public class Login {
         outPacket.encodeByte(msg.getValue());
         outPacket.encodeString("");
         if (success) {
-//            outPacket.encodeByte(LoginType.Success.getValue());
-//            outPacket.encodeString("");
             outPacket.encodeString(user.getName());
             outPacket.encodeLong(user.getId());
             outPacket.encodeInt(user.getId());
@@ -123,18 +121,18 @@ public class Login {
 
             outPacket.encodeInt(0);
 
-            outPacket.encodeByte(user.getpBlockReason());
-            outPacket.encodeByte(false);
+            outPacket.encodeByte(3);//user.getpBlockReason()
+            outPacket.encodeByte((user.getChatUnblockDate() > 0L) ? 1 : 0);
             outPacket.encodeLong(user.getChatUnblockDate());
             outPacket.encodeByte(0);
             outPacket.encodeLong(user.getChatUnblockDate());
-            outPacket.encodeByte(!user.hasCensoredNxLoginID());
-            if (user.hasCensoredNxLoginID()) {
+            outPacket.encodeByte(user.hasCensoredNxLoginID());
+            if (!user.hasCensoredNxLoginID()) {
                 outPacket.encodeString(user.getName()/*user.getCensoredNxLoginID()*/);
             }
             outPacket.encodeString(user.getName());
             JobConstants.encode(outPacket);
-            outPacket.encodeByte(user.getGradeCode());
+            outPacket.encodeByte(user.getGradeCode());//0
             outPacket.encodeInt(-1);
             outPacket.encodeByte(0); // idk
         } else if (msg == LoginType.Blocked) {
@@ -171,7 +169,7 @@ public class Login {
         outPacket.encodeByte(world.getWorldId().getVal());
         outPacket.encodeString(world.getName());
         outPacket.encodeInt(0);
-        outPacket.encodeInt(1);
+        outPacket.encodeInt(0);
         outPacket.encodeByte(0);
         outPacket.encodeByte(0);
         outPacket.encodeByte(world.getWorldState());
@@ -182,7 +180,7 @@ public class Login {
             outPacket.encodeString(c.getName());
             outPacket.encodeInt(c.getGaugePx());
             outPacket.encodeByte(c.getWorldId().getVal());
-            outPacket.encodeByte(c.getChannelId());
+            outPacket.encodeByte(c.getChannelId() - 1);
             outPacket.encodeByte(c.isAdultChannel());
         }
         if (stringInfos == null) {
@@ -195,7 +193,16 @@ public class Login {
             }
         }
         outPacket.encodeInt(0); // some offset
-        outPacket.encodeByte(false); // connect with star planet stuff, not interested
+
+        int size = 0;
+        outPacket.encodeByte(1); // connect with star planet stuff, not interested
+        outPacket.encodeInt(size);
+        for (int i = 0; i < size; i++) {
+            outPacket.encodeByte(size - 1);
+            outPacket.encodeByte(1);
+            outPacket.encodeByte(0);
+        }
+
         return outPacket;
     }
 
@@ -207,6 +214,14 @@ public class Login {
         outPacket.encodeByte(false);
         outPacket.encodeInt(-1);
         outPacket.encodeInt(-1);
+
+        return outPacket;
+    }
+
+    public static OutPacket enableRecommended() {
+        OutPacket outPacket = new OutPacket(OutHeader.LATEST_CONNECTED_WORLD);
+
+        outPacket.encodeInt(47);
 
         return outPacket;
     }
@@ -352,7 +367,7 @@ public class Login {
             c.getAvatarData().encode(outPacket);
         }
         outPacket.encodeByte(false); // new 199
-        outPacket.encodeInt(0);
+        //outPacket.encodeInt(0);
 
         return outPacket;
     }
@@ -393,21 +408,15 @@ public class Login {
             outPacket.encodeShort(port);
             outPacket.encodeInt(characterId);
 
-            outPacket.encodeInt(1);
-            outPacket.encodeInt(1);
-            outPacket.encodeInt(1);
+            outPacket.encodeInt(2);
+            outPacket.encodeInt(2);
+            outPacket.encodeInt(2);
 
-            outPacket.encodeInt(101495092);
+            outPacket.encodeInt(35564907);
             outPacket.encodeByte(0); // bAuthenCode
             outPacket.encodeInt(0); // ulArgument
             outPacket.encodeByte(20);
             outPacket.encodeInt(1000);
-
-//            outPacket.encodeByte(false);
-//            outPacket.encodeInt(0);
-//            outPacket.encodeString("");
-//            outPacket.encodeString("");
-//            outPacket.encodeString("");
         }
 
         return outPacket;
@@ -453,7 +462,7 @@ public class Login {
 
     public static OutPacket RequestSpw() {
         OutPacket outPacket = new OutPacket(OutHeader.REQUEST_SPW);
-        outPacket.encodeByte(1);
+        outPacket.encodeByte(0);
         return outPacket;
     }
 
@@ -466,6 +475,17 @@ public class Login {
     public static OutPacket SetGender(boolean success) {
         OutPacket outPacket = new OutPacket(OutHeader.GENDER_SET);
         outPacket.encodeByte(success);
+        return outPacket;
+    }
+
+    public static OutPacket createCharResponse(int state) {
+        OutPacket outPacket = new OutPacket(OutHeader.CREATE_CHAR_RESPONSE);
+        outPacket.encodeByte(state);
+        switch (state) {
+            case 0:
+                JobConstants.encode(outPacket);
+                break;
+        }
         return outPacket;
     }
 }

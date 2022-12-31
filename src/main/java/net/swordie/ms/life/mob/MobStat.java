@@ -55,7 +55,7 @@ public enum MobStat {
     Mystery(-1),
     Unk205_33(38), // could be swapped with AddDamParty
     AddDamParty(39),
-    HitCriDamR(40), // *
+    HitCriDamR(40), //
     Fatality(41),
     Lifting(42),
     DeadlyCharge(43),
@@ -107,22 +107,24 @@ public enum MobStat {
     Unknown75(77),
     Unknown76(78),
     Curseweaver(79),
-    Unknown77(80), // *
-    Unknown78(81),
-    Unknown79(82),
-    Unknown80(83),
-    Unknown81(84),
-    Unk205_85(85),
-    Unk205_86(86),
-    Explosion(87), // *
-    HangOver(88),
-    Unknown84(89),
-    BurnedInfo(90), // *
-    InvincibleBalog(91),
-    ExchangeAttack(92),
+    unk83(80),
+    Degeneration(81), //
+    TossAndSwallow(82),
+    Unknown78(83),
+    Unknown79(84),
+    Unknown80(85),
+    Unknown81(86),
+    Unk205_85(87),
+    Unk205_86(88),
+    Explosion(89), // 94
+    HangOver(90), // *
+    Unknown84(91),
+    BurnedInfo(92),
+    InvincibleBalog(93),
+    ExchangeAttack(94),
 
-    ExtraBuffStat(93),
-    LinkTeam(94), // *
+    ExtraBuffStat(95),
+    LinkTeam(94), //
     SoulExplosion(95),
     SeperateSoulP(96), // applied to origin
     SeperateSoulC(97), // applied to the Copy
@@ -195,7 +197,7 @@ public enum MobStat {
 //            System.out.printf("%s(%d),%n", header, val);
 //        }
         File file = new File(ServerConstants.DIR + "\\src\\main\\java\\net\\swordie\\ms\\life\\mob\\MobStat.java");
-        int change = 1;
+        int change = 2;
         MobStat checkOp = null;
         try(Scanner s = new Scanner(file)) {
             while (s.hasNextLine()) {
@@ -210,7 +212,7 @@ public enum MobStat {
                     int val = Integer.parseInt(split[1]);
                     MobStat ih = Arrays.stream(MobStat.values()).filter(o -> o.toString().equals(name.trim())).findFirst().orElse(null);
                     if (ih != null) {
-                        MobStat start = Unknown77;
+                        MobStat start = HangOver;
                         if (ih.ordinal() >= start.ordinal() && ih.ordinal() < LinkTeam.ordinal()) {
                             if (line.contains("*")) {
                                 checkOp = ih;

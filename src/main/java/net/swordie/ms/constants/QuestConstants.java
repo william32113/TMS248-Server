@@ -39,6 +39,8 @@ public class QuestConstants {
     public static final int ZERO_DATA = 9000001;
     public static final int PVAC_DATA = 9000002;
 
+    public static final int SHAPESHIFT_QR = 7786;
+
     public static String getWhStorageQuestValByTemplateID(int templateId) {
         if (templateId >= 9304000 && templateId <= 9304008) {
             return String.valueOf((templateId % 10) + 1);

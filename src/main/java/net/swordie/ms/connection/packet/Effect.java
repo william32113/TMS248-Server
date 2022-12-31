@@ -571,6 +571,17 @@ public class Effect {
         return effect;
     }
 
+    public static Effect showTalismanSwallowEffect(int skillId, int chrLvl, int slv, int mobId, int templateId) {
+        Effect effect = new Effect(SkillUse);
+
+        effect.setArg1(skillId);
+        effect.setArg2(chrLvl);
+        effect.setArg3(slv);
+        effect.setArg5(mobId);
+        effect.setArg6(templateId);
+
+        return effect;
+    }
 
     public static Effect createFieldTextEffect(String msg, int letterDelay, int showTime, int clientPosition,
                                                Position boxPos, int align, int lineSpace, TextEffectType type,

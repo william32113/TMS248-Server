@@ -766,6 +766,8 @@ public enum OutHeader {
     UNK_691(730), //
     UNK205_730(731), //
 
+    SHAPESHIFT_RESULT(804),
+
     // CUser::OnPetPacket   248
     PET_ACTIVATED(805), // *
     PET_MOVE(806), // *
@@ -804,16 +806,23 @@ public enum OutHeader {
     SKILL_PET_ACTION(831), // *
     SKILL_PET_STATE(832), // *
     SKILL_PET_CREATED(833), // *
-    //
-    //
-    //
-    //
+    SKILL_PET_NAME_CHANGED(834),
+    SKILL_PET_LOAD_EXCEPTION_LIST(835),
+    SKILL_PET_TRANSFER_FIELD(836),  // v214
+    END_SKILL_PET(837),
+
+    //ver v214 New Packet Pool for CUser
+    CREATE_SECOND_ATOM(842),
+    UNK212_788(843), //No decodes?
+    CREATE_INFINITY_BLADE_ATOM(844), //Decode 4 then Atom sub
+    SECOND_ATOM_ATTACK(845), //Two Decode 4
+    UNK212_791(846), //Three Decode 4
+    REMOVE_SECOND_ATOM(847), //Three Decode 4?
 
     // CUserPool::OnCommonPacket (last part) 248?? idk not found
-    GACHAPON_EFFECT(838), //??
-    REMOTE_CHAT(839), //??
-    REMOTE_ITEM_LINKED_CHAT(840), //??
-    UNK_730(841), //??
+    GACHAPON_EFFECT(839), //??
+    REMOTE_CHAT(840), //??
+    REMOTE_ITEM_LINKED_CHAT(841), //??
 
     // CFamiliar::OnPacket  248
     FAMILIAR_ENTER_FIELD(842), // *
@@ -1038,9 +1047,9 @@ public enum OutHeader {
     PLANT_POT_EFFECT(998), //
     UNK205_996(999), //
     DAMAGE(1000), //
-    ROYAL_GUARD_ATTACK(1001), //
-    DO_ACTIVE_PSYCHIC_AREA(1002), //
-    ENTER_FIELD_PSYCHIC_INFO(1003), //
+    ROYAL_GUARD_ATTACK(1098), //1001 -> 1098?
+    DO_ACTIVE_PSYCHIC_AREA(1099), //
+    ENTER_FIELD_PSYCHIC_INFO(1100), //
     LEAVE_FIELD_PSYCHIC_INFO(1004), //
     TOUCH_ME_STATE_RESULT(1005), //
     FIELD_SCORE_UPDATE(1006), //
@@ -1048,9 +1057,9 @@ public enum OutHeader {
     SET_NO_MORE_LIFE(1009), //
     SOME_DECODE4(1009), //
     UNK_881(1010), //
-    BONUS_ATTACK_DELAY_REQUEST(1011), //
-    CREATE_AREA_DOT_INFO(1012), //
-    UNK_883(1013), //
+    BONUS_ATTACK_DELAY_REQUEST(1108), //1011 -> 1108?
+    CREATE_AREA_DOT_INFO(1109), //
+    AREA_EXPLOSION_REQUEST(1013), // ??
     UNK200_969(1014), //
     SET_SLOW_DOWN(1015), //
     REGISTER_EXTRA_SKILL(1016), //
@@ -1718,6 +1727,9 @@ public enum OutHeader {
     PET_CONSUME_ITEM_INIT(2242), // int
     PET_CONSUME_MP_ITEM(2243), // int
     PET_CONSUME_UNK(2244), // int
+
+    //創建角色驗證碼
+    CREATE_CHAR_RESPONSE(2245),
 
     // CUIGoldHammer::OnPacket 248
     GOLD_HAMMER_ITEM_UPGRADE_RESULT(2251), //1972 -> 2251

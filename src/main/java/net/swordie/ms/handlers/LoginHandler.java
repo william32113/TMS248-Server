@@ -198,7 +198,8 @@ public class LoginHandler {
             c.write(Login.sendWorldInformation(world, null));
         }
         c.write(Login.sendWorldInformationEnd());
-//        c.write(Login.sendRecommendWorldMessage(ServerConfig.WORLD_ID, ServerConfig.RECOMMEND_MSG));
+        //c.write(Login.enableRecommended());//KMS有發
+        //c.write(Login.sendRecommendWorldMessage(ServerConfig.WORLD_ID, ServerConfig.RECOMMEND_MSG));
     }
 
     @Handler(op = InHeader.REQUEST_RELOGIN_COOKIE)
@@ -528,13 +529,24 @@ public class LoginHandler {
             c.write(Login.checkPasswordResult(false, LoginType.AlreadyConnected, c.getUser()));
             return;
         }
-        if (c.getAccount().hasCharacter(characterId)) {
+        //if (c.getAccount().hasCharacter(characterId)) {
             Channel channel = Server.getInstance().getWorldById(worldId).getChannelById(channelId);
             Server.getInstance().getWorldById(worldId).getChannelById(channelId).addClientInTransfer(channelId, characterId, c);
             c.write(Login.selectCharacterResult(LoginType.Success, (byte) 0, channel.getPort(), characterId));
-        } else {
-            c.write(Login.selectCharacterResult(LoginType.UnauthorizedUser, (byte) 0, 0, 0));
+        //} else {
+          //  c.write(Login.selectCharacterResult(LoginType.UnauthorizedUser, (byte) 0, 0, 0));
+        //}
+    }
+
+    @Handler(op = InHeader.CREATE_CHAR_AUTH)
+    public static void handleCreateChar2Pw(Client c, InPacket inPacket) {
+        final String spw = inPacket.decodeString();
+        int state = 0;
+        User user = c.getUser();
+        if (user.getPic() != spw) {
+            state = 20;
         }
+        c.write(Login.createCharResponse(state));
     }
 
     @Handler(op = InHeader.CHAR_SELECT_NO_PIC)

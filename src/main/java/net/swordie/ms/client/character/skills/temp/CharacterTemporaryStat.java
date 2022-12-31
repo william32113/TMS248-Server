@@ -720,7 +720,17 @@ public enum CharacterTemporaryStat implements Comparator<CharacterTemporaryStat>
 
 
 
-
+    TalismanEnergy(659),
+    ScrollEnergy(660), // Hoyoung Spell/Talisman Gauge
+    TalismanClone(661),
+    CloneRampage(662),
+    ButterFlyDream(663),
+    MiracleTonic(664),
+    Unk210_607(665),
+    Unk210_608(666),
+    Unk210_609(667),
+    Unk210_610(668), // new CTS v210 end
+    //
     DreamDowon(670),//按壓型 根據剩餘時間長短返還技能冷卻
     意志之劍_重磅出擊(671),//凱薩5轉新技能
     乙太(672),
@@ -898,7 +908,7 @@ public enum CharacterTemporaryStat implements Comparator<CharacterTemporaryStat>
             BeastMode,TeamRoar, Unk176_488, Unk176_489, Unk176_493, WaterSplashEventMarking, WaterSplashEventMarking2, WaterSplashEventCombo, WaterSplashEventWaterDripping,
             Unk188_539, YukiMusumeShoukan, IaijutsuBlade, Unk199_595,Unk199_596,Unk199_597, BroAttack, LiberatedSpiritCircle, Unk205_640,山不敗,KinesisMind_Break,超載魔力,
             DreamDowon,乙太,創造,奇蹟,魔劍共鳴
-
+            ,TalismanEnergy,ScrollEnergy
     );
 
 

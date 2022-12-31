@@ -466,7 +466,11 @@ public class Char {
     @Transient
     private Map<Integer, ForceAtom> forceAtoms = new HashMap<>();
     @Transient
+    private Map<Integer, SecondAtom> secondAtoms = new HashMap<>();
+    @Transient
     private int forceAtomKeyCounter = 1;
+    @Transient
+    private int secondAtomKeyCounter = 0;
     @Transient
     private Char copy;
     @Transient
@@ -812,7 +816,7 @@ public class Char {
             if (i < getPets().size()) {
                 outPacket.encodeInt(getPets().get(i).getActiveSkillCoolTime());
             } else {
-                outPacket.encodeInt(-1);
+                outPacket.encodeInt(-3);
             }
         }
 
@@ -865,7 +869,7 @@ public class Char {
 
             outPacket.encodeByte(false); // ultimate explorer, deprecated
 
-            outPacket.encodeLong(0);
+            outPacket.encodeFT(FileTime.fromLong(System.currentTimeMillis()));//00 58 0D CF AB 04 CE 01
             outPacket.encodeFT(FileTime.fromType(FileTime.Type.ZERO_TIME));
 
             // sub 00 00 00 00 FF 00 00 00 00 FF
@@ -922,7 +926,7 @@ public class Char {
         }
 
         if (mask.isInMask(DBChar.EquipExtension)) {
-            outPacket.encodeFT(FileTime.fromType(FileTime.Type.MAX_TIME)); // extra pendant
+            outPacket.encodeFT(FileTime.fromType(FileTime.Type.ZERO_TIME)); // extra pendant
         }
 
         if (mask.isInMask(DBChar.ItemSlotEquip)) {
@@ -6650,6 +6654,10 @@ public class Char {
         return forceAtoms;
     }
 
+    public Map<Integer, SecondAtom> getSecondAtoms() {
+        return secondAtoms;
+    }
+
     /**
      * Initializes this Char's Android according to their heart + android equips. Will not do anything if an Android
      * already exists.
@@ -6716,9 +6724,35 @@ public class Char {
         addForceAtom(forceAtom);
     }
 
+    public void createSecondAtom(List<SecondAtom> secondAtoms) {
+        createSecondAtom(secondAtoms, false, true);
+    }
+
+    public void createSecondAtom(List<SecondAtom> secondAtoms, boolean infinity) {
+        createSecondAtom(secondAtoms, infinity, true);
+    }
+
+    public void createSecondAtom(List<SecondAtom> secondAtoms, boolean multi, boolean broadcastToField) {
+        if (broadcastToField) {
+            getField().broadcastPacket(multi ? SecondAtomPacket.createSecondAtoms(this.getId(), secondAtoms) : SecondAtomPacket.createSecondAtom(this.getId(), secondAtoms));
+        } else {
+            write(multi ? SecondAtomPacket.createSecondAtom(this.getId(), secondAtoms) : SecondAtomPacket.createSecondAtom(this.getId(), secondAtoms));
+        }
+        addSecondAtom(secondAtoms);
+    }
+
+    public void addSecondAtom(List<SecondAtom> secondAtoms) {
+        secondAtoms.forEach(k -> getSecondAtoms().put(secondAtomKeyCounter, k));
+    }
+
     public void clearForceAtomMap() {
         getForceAtoms().clear();
         setForceAtomKeyCounter(1);
+    }
+
+    public void clearSecondAtoms() {
+        getSecondAtoms().clear();
+        setSecondAtomKeyCounter(1);
     }
 
     public int getForceAtomKeyCounter() {
@@ -6729,8 +6763,19 @@ public class Char {
         this.forceAtomKeyCounter = forceAtomKeyCounter;
     }
 
+    public void setSecondAtomKeyCounter(int forceAtomKeyCounter) {
+        this.secondAtomKeyCounter = forceAtomKeyCounter;
+    }
+
     public int getNewForceAtomKey() {
         return forceAtomKeyCounter++;
+    }
+
+    public int getNewSecondAtomKey() {
+        if (secondAtomKeyCounter > 1000000000) {
+            secondAtomKeyCounter = 0;
+        }
+        return secondAtomKeyCounter++;
     }
 
     public void setCopy(Char copy) {

@@ -273,7 +273,8 @@ public class SkillConstants {
                 skillId == 400051041 || skillId == 41121001 || skillId == 155121341 || skillId == 400011072 ||
                 skillId == 24121005 || skillId == 112001008 || skillId == 112110003 || skillId == 112111016 ||
                 skillId == 400021072 || skillId == 400021061 || skillId == 3321036 || skillId == 3321035 ||
-                skillId == 3321040 || skillId == 3321038|| skillId == 400051334 || skillId == 64101002 || skillId == 64101008 || skillId == 151001004;
+                skillId == 3321040 || skillId == 3321038|| skillId == 400051334 || skillId == 64101002 || skillId == 64101008 ||
+                skillId == 164121042 || skillId == 151121004;
     }
 
     public static boolean isEvanForceSkill(int skillId) {

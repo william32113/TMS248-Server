@@ -3,7 +3,6 @@ package net.swordie.ms.connection.packet;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.handlers.header.OutHeader;
-import net.swordie.ms.life.MagicSword;
 import net.swordie.ms.util.Randomizer;
 
 public class SkillPacket {
@@ -107,109 +106,6 @@ public class SkillPacket {
         outPacket.encodeInt(level);
         outPacket.encodeInt(1);
         outPacket.encodeInt(1);
-        return outPacket;
-    }
-
-    public static OutPacket RemoveSubObtacle(Char chr,final int id) {
-        OutPacket outPacket = new OutPacket(OutHeader.FAMILIAR_TRANSFER_FIELD);
-        outPacket.encodeByte(chr.getId());
-        outPacket.encodeInt(1);
-        outPacket.encodeInt(id);
-        outPacket.encodeInt(0);
-        outPacket.encodeInt(1);
-        return outPacket;
-    }
-
-    public static OutPacket CreateSworldObtacle(final MagicSword ms) {
-        OutPacket outPacket = new OutPacket(OutHeader.FAMILIAR_HIT);
-        outPacket.encodeInt(ms.getChr().getId());
-        outPacket.encodeInt(1);
-        if (ms.core()) {
-            outPacket.encodeInt(ms.getObjectId());
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(8);
-            outPacket.encodeInt(ms.getSwordCount());
-            outPacket.encodeInt(ms.getChr().getId());
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(ms.getSourceid());
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(ms.getDuration());
-            outPacket.encodeInt(ms.getChr().getPosition().getX() + Randomizer.rand(-500, 500));
-            outPacket.encodeInt(ms.getChr().getPosition().getY() + Randomizer.rand(-300, 300));
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(ms.getChr().getPosition().getX() + Randomizer.rand(-500, 500));
-            outPacket.encodeInt(ms.getChr().getPosition().getY() + Randomizer.rand(-300, 300));
-            outPacket.encodeByte(0);
-            outPacket.encodeByte(0);
-            outPacket.encodeByte(0);
-            outPacket.encodeInt(0);
-            outPacket.encodeInt((ms.getChr().getSkillCustomValue0(400011108) > 0L) ? 1 : 0);
-        } else {
-            outPacket.encodeInt(ms.getObjectId());
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(7);
-            outPacket.encodeInt(ms.getSwordCount());
-            outPacket.encodeInt(ms.getChr().getId());
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(ms.getSourceid());
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(ms.getDuration());
-            outPacket.encodeInt(ms.getChr().getPosition().getX() + ((ms.getSwordCount() == 0 || ms.getSwordCount() == 2 || ms.getSwordCount() == 4 || ms.getSwordCount() == 6 || ms.getSwordCount() == 8) ? 30 : -30));
-            outPacket.encodeInt(ms.getChr().getPosition().getY());
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(ms.getChr().getPosition().getX() + ((ms.getSwordCount() == 0 || ms.getSwordCount() == 2 || ms.getSwordCount() == 4 || ms.getSwordCount() == 6 || ms.getSwordCount() == 8) ? 30 : -30));
-            outPacket.encodeInt(ms.getChr().getPosition().getY());
-            outPacket.encodeByte(0);
-            outPacket.encodeByte(0);
-            outPacket.encodeByte(0);
-            outPacket.encodeInt(3);
-            switch (ms.getSwordCount()) {
-                case 0:
-                case 2:
-                case 4:
-                case 6:
-                case 8:
-                case 10:
-                case 12:
-                case 14:
-                case 16:
-                case 18:
-                case 20: {
-                    outPacket.encodeArr("79 FF FF FF 5B FF FF FF 6A FF FF FF");
-                    break;
-                }
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 9:
-                case 11:
-                case 13:
-                case 15:
-                case 17:
-                case 19:
-                case 21: {
-                    outPacket.encodeArr("87 00 00 00 A5 00 00 00 96 00 00 00");
-                    break;
-                }
-                default: {
-                    outPacket.encodeArr(new byte[12]);
-                    break;
-                }
-            }
-            outPacket.encodeInt(0);
-        }
-
         return outPacket;
     }
 }
